@@ -7,21 +7,12 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	HANDLE hMutex = NULL;
-	while (1)
-	{
-		hMutex = CreateMutexA( NULL, FALSE, "MutexName111a" ); // 뮤텍스 생성
-		if( GetLastError() == ERROR_ALREADY_EXISTS ) // GetLastError() 함수로 에러를 확인
-		{
-			printf( "ERROR_ALREADY_EXISTS\n" );
-			Sleep( 300 );
-			CloseHandle(hMutex);
-			continue;
-		}
-		break;
-	}
+	HANDLE hMutex = CreateMutexA( NULL, TRUE, "MutexName111a" ); // 뮤텍스 생성
+	printf( "hMutex = %d\n", hMutex );
+	printf( "WaitForSingleObject\n" );
+	WaitForSingleObject( hMutex, INFINITE );
 
-	printf( "CreateMutex\n" );
+	printf( "Process\n" );
 
 	Sleep( 5000 );
 	CloseHandle(hMutex);
